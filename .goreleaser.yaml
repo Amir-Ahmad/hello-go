@@ -1,0 +1,33 @@
+project_name: hello
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w -X main.version={{ .Version }}
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+    binary: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+    no_unique_dist_dir: true
+
+archives:
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
