@@ -1,3 +1,3 @@
 # hello-go
 
-I'm using this to get familiar with goreleaser in combination with github actions for releasing go binaries + docker images.
+Minimal example of using Github actions with Goreleaser to build multi arch binaries once, and push to github + ghcr.
